@@ -1,0 +1,43 @@
+# Audio-visual configuration: frozen WavLM-large audio branch + face fusion.
+# The audio branch is frozen (it generalizes better than fine-tuning on this small
+# set, and keeps GPU memory low) so the learning goes into the fusion and the head.
+data_root: /home/romia/ravdess-data/Audio_Speech
+video_root: /home/romia/ravdess-data/video_extracted
+sample_rate: 16000
+max_seconds: 5.0
+
+ssl_name: microsoft/wavlm-large
+freeze_feature_extractor: true
+num_frozen_layers: 999        # freeze the entire audio encoder (linear-probe style)
+use_layer_weighting: true
+hidden_dim: 256
+dropout: 0.3
+
+num_frames: 16
+face_size: 224
+# A facial-EXPRESSION model: its features encode the expression, not the identity,
+# so they transfer to faces the model never trained on (unlike ImageNet features).
+visual_backbone: dima806/facial_emotions_image_detection
+visual_feat_dim: 768
+fusion_dim: 256
+
+num_folds: 6
+val_actors_per_fold: 4
+seed: 42
+
+batch_size: 8
+grad_accum_steps: 2
+epochs: 30
+patience: 8
+warmup_ratio: 0.1
+lr_head: 1.0e-3
+lr_backbone: 5.0e-6
+llrd: 0.9
+weight_decay: 1.0e-4
+augment: true
+use_amp: true
+grad_checkpointing: false
+num_workers: 0
+
+results_dir: results
+cache_dir: .cache

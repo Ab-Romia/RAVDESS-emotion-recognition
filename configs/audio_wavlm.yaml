@@ -1,0 +1,32 @@
+# Primary configuration: WavLM-large fine-tuned on RAVDESS speech.
+data_root: /home/romia/ravdess-data/Audio_Speech
+sample_rate: 16000
+max_seconds: 5.0
+
+ssl_name: microsoft/wavlm-large
+freeze_feature_extractor: true
+num_frozen_layers: 18          # fine-tune the top 6 of 24 transformer layers
+use_layer_weighting: true
+hidden_dim: 256
+dropout: 0.3
+
+num_folds: 6
+val_actors_per_fold: 4
+seed: 42
+
+batch_size: 4
+grad_accum_steps: 4
+epochs: 18
+patience: 7
+warmup_ratio: 0.1
+lr_head: 1.0e-3
+lr_backbone: 5.0e-6
+llrd: 0.9
+weight_decay: 1.0e-4
+augment: true
+use_amp: true
+grad_checkpointing: true
+num_workers: 4
+
+results_dir: results
+cache_dir: .cache
