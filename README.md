@@ -19,7 +19,7 @@ the split:
 | Random (clip-level) | partly speaker memorization | ~78% |
 | Speaker-independent (actor-disjoint) | emotion that transfers to new voices | 64.9% |
 
-A twelve-point swing from nothing but the partition. Every result below uses the
+A thirteen-point swing from nothing but the partition. Every result below uses the
 speaker-independent protocol.
 
 ## Evaluation protocol
@@ -47,7 +47,7 @@ All numbers are the mean and standard deviation across the six speaker-independe
 | Facial-expression ViT probe | visual | 58.1% | — |
 | HuBERT-base | audio | 64.9% ± 2.1% | 0.641 |
 
-The face adds a real 8.6 points on top of audio, with no leak. Naive joint fusion of the
+The face adds a real 8.5 points on top of audio, with no leak. Naive joint fusion of the
 two streams actually scored *below* audio alone (the classic modality-competition failure
 on small data); training each modality separately and combining their temperature-calibrated
 probabilities with a validation-tuned weight is what makes the gain real and safe (the
